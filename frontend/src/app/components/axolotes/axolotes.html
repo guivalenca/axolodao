@@ -1,0 +1,50 @@
+<div class="axolotes-layout">
+  
+  <div class="main-column">
+    <div class="filter-top">
+      <button class="tab-btn active">〰️ Axolote</button>
+    </div>
+
+    <div class="profile-card">
+      <div class="profile-img-container">
+        <img src="/assets/axolotes-loginPage.png" alt="Axolote Branco" class="profile-img">
+      </div>
+      
+      <div class="profile-info">
+        <div class="info-block">
+          <h3>About Me</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque posuere fermentum urna, eu condimentum mauris.</p>
+        </div>
+        <div class="info-block">
+          <h3>About Me</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque posuere fermentum urna, eu condimentum mauris.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <h2>$35,8K</h2>
+          <p>Overall Revenue</p>
+        </div>
+        <button class="dropdown-btn">Monthly ⌄</button>
+      </div>
+      <div class="chart-placeholder">
+        <p style="color: #95A5A6; text-align: center; padding: 4rem 0;">(Gráfico de Linha Aqui)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="side-column">
+    <div class="comments-list">
+      <div class="comment-card" *ngFor="let comment of comentarios">
+        <h4>{{ comment.titulo }}</h4>
+        <p>{{ comment.texto }}</p>
+      </div>
+    </div>
+    
+    <button class="fab-btn">+</button>
+  </div>
+
+</div>

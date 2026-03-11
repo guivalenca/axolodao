@@ -1,0 +1,74 @@
+<div class="tanques-layout">
+  
+  <div class="main-column">
+    <div class="filter-center">
+      <button class="tab-btn active">〰️ Tanque 1</button>
+    </div>
+
+    <div class="tank-card">
+      <div class="tank-visuals">
+        <img src="/assets/axolotes-loginPage.png" alt="Aquário" class="tank-img">
+        
+        <div class="gauges-container">
+          <div class="gauge-box">
+            <div class="gauge ph-gauge"><span>7.4</span></div>
+            <p>pH</p>
+            <span class="badge badge-green">Ideal: 6.5 - 8.0</span>
+          </div>
+          <div class="gauge-box">
+            <div class="gauge temp-gauge"><span>17°C</span></div>
+            <p>Temperatura</p>
+            <span class="badge badge-green">Ideal: 16 - 18°C</span>
+          </div>
+          <div class="gauge-box">
+            <div class="gauge amonia-gauge"><span>0.1<small>ppm</small></span></div>
+            <p>Amônia</p>
+            <span class="badge badge-green">Ideal: 0 ppm</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tank-info">
+        <div class="info-block">
+          <h3>About Me</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque posuere fermentum urna, eu condimentum mauris.</p>
+        </div>
+        <div class="info-block">
+          <h3>About Me</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque posuere fermentum urna, eu condimentum mauris.</p>
+        </div>
+        <div class="info-block">
+          <h3>About Me</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque posuere fermentum urna, eu condimentum mauris.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <h2>$35,8K</h2>
+          <p>Overall Revenue</p>
+        </div>
+        <button class="dropdown-btn">Monthly ⌄</button>
+      </div>
+      <div class="chart-placeholder">
+        <p style="color: #95A5A6; text-align: center; padding: 4rem 0;">(Gráfico de Linha Aqui)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="side-column">
+    <div class="side-search">
+      <input type="text" placeholder="🔍 Buscar...">
+    </div>
+    
+    <div class="axolotl-list">
+      <div class="axolotl-item" *ngFor="let axolote of axolotes">
+        <img [src]="axolote.img" alt="Axolote" class="axolotl-avatar">
+        <span class="axolotl-name">{{ axolote.nome }}</span>
+      </div>
+    </div>
+  </div>
+
+</div>

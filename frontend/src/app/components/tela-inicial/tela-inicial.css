@@ -1,0 +1,317 @@
+/* VARIÁVEIS DE COR PARA FACILITAR */
+:host {
+  --sidebar-bg: #14404D;
+  --accent-teal: #329F9A;
+  --bg-light: #F4F7F8;
+  --text-dark: #2C3E50;
+  --text-gray: #95A5A6;
+}
+
+/* LAYOUT PRINCIPAL */
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background-color: var(--bg-light);
+  font-family: 'Inter', sans-serif;
+}
+
+/* --- SIDEBAR --- */
+.sidebar {
+  width: 250px;
+  background-color: var(--sidebar-bg);
+  color: white;
+  padding-top: 5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 0 25px 25px 0;
+  margin-right: 2rem;
+  transition: 0.3s;
+}
+
+.nav-item.active, .nav-item:hover {
+  background-color: rgba(50, 159, 154, 0.2);
+  color: var(--accent-teal);
+}
+
+/* --- ÁREA PRINCIPAL --- */
+.main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+/* CABEÇALHO */
+.top-header {
+  height: 70px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  border-bottom: 1px solid #EAECEE;
+}
+
+.search-wrapper {
+  background-color: var(--bg-light);
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  width: 300px;
+}
+
+.search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  margin-left: 0.5rem;
+  width: 100%;
+}
+
+.header-icons .icon-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
+/* CONTEÚDO */
+.dashboard-content {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ABAS DE FILTRO */
+.filter-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  background: white;
+  padding: 0.5rem;
+  border-radius: 30px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+}
+
+/* TABS - GARANTINDO O ESTILO INATIVO/ATIVO */
+.tab-btn {
+  padding: 0.6rem 1.5rem;
+  border: none;
+  background: transparent; /* Transparente por padrão */
+  border-radius: 20px;
+  font-weight: 600;
+  color: var(--text-gray);
+  cursor: pointer;
+  transition: all 0.3s ease; /* Animação suave na cor */
+}
+
+.tab-btn.active {
+  background-color: var(--accent-teal); /* Fica verde-água APENAS quando ativo */
+  color: white;
+}
+
+/* CARROSSEL DISNEY+ */
+.disney-carousel {
+  width: 100%;
+  overflow: hidden; /* Esconde o que estiver fora da área visível */
+  position: relative;
+  border-radius: 15px;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  background-color: #000; /* Fundo preto para as imagens de banner */
+}
+
+/* É aqui que a mágica de deslizar acontece */
+.carousel-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1); /* Curva de animação cinematográfica */
+  width: 100%;
+}
+
+.carousel-slide {
+  min-width: 100%; /* Cada banner ocupa a tela inteira do carrossel */
+  position: relative;
+}
+
+.slide-image {
+  width: 100%;
+  height: 350px; /* Altura do banner (ajuste se quiser maior ou menor) */
+  object-fit: cover;
+  display: block;
+  opacity: 0.8;
+}
+
+.slide-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 4rem 2rem 2rem 2rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+  color: white;
+}
+
+.slide-overlay h2 { margin: 0 0 0.5rem 0; font-size: 2rem; }
+.slide-overlay p { margin: 0; opacity: 0.8; }
+
+/* DOTS (As bolinhas de navegação estilo Disney/Apple) */
+.carousel-dots {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Bolinha ativa fica "esticada" igual na foto que você mandou */
+.dot.active {
+  background-color: white;
+  width: 24px; 
+  border-radius: 10px;
+}
+.axolotl-card {
+  min-width: 220px;
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  border: 1px solid #EAECEE;
+  text-align: center;
+}
+
+.card-image {
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  color: var(--accent-teal);
+  font-size: 1rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.card-desc {
+  color: var(--text-gray);
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+/* GRID INFERIOR (TIMELINE E ALERTAS) */
+.bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.timeline-panel, .alerts-panel {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  border: 1px solid #EAECEE;
+}
+
+/* ALERTAS DIREITOS */
+.alert-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border-left: 6px solid;
+}
+
+.alert-warning {
+  background-color: #FFF9E6;
+  border-left-color: #F5B041;
+  color: #D68910;
+}
+
+.alert-success {
+  background-color: #E8F8F5;
+  border-left-color: #2ECC71;
+  color: #1D8348;
+}
+
+.alert-danger {
+  background-color: #FDEDEC;
+  border-left-color: #E74C3C;
+  color: #B03A2E;
+}
+
+.alert-text h4 { margin: 0 0 0.2rem 0; font-size: 0.95rem; }
+.alert-text p { margin: 0; font-size: 0.8rem; opacity: 0.8; }
+
+
+/* SETAS DO CARROSSEL */
+.carousel-arrow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50px; /* Largura da área de clique da seta */
+  background: rgba(0, 0, 0, 0.1); /* Fundo quase transparente normal */
+  color: white;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 20; /* Garante que fique por cima da imagem e do texto */
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0; /* Esconde as setas quando o mouse está fora */
+}
+
+/* Mostra as setas quando o mouse entra no carrossel */
+.disney-carousel:hover .carousel-arrow {
+  opacity: 1;
+}
+
+/* Escurece o fundo da seta quando passa o mouse exatamente nela */
+.carousel-arrow:hover {
+  background: rgba(0, 0, 0, 0.6);
+  font-size: 2.5rem; /* Dá um leve zoom na seta */
+}
+
+/* Posiciona cada uma no seu lado */
+.left-arrow {
+  left: 0;
+}
+
+.right-arrow {
+  right: 0;
+}
