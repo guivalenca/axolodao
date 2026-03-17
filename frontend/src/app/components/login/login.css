@@ -117,6 +117,69 @@
     object-fit: cover;
 }
 
+.wallet-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem; /* Espaço entre os campos */
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  text-align: left;
+}
+
+.input-group label {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Ajuda na leitura por causa do fundo claro */
+}
+
+/* Campos de texto estilo Glassmorphism */
+.wallet-input {
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  outline: none;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.wallet-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.wallet-input:focus {
+  border-color: #329F9A; /* O tom de verde-água da sua marca */
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 0 3px rgba(50, 159, 154, 0.2);
+}
+
+.confirm-btn {
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+/* Animação suave para revelar os campos */
+.fade-in {
+  animation: fadeInDown 0.4s ease-out forwards;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* RESPONSIVIDADE PARA CELULAR */
 @media screen and (max-width: 650px) {
   .login-card {
@@ -135,4 +198,53 @@
   .login-brand-side {
     height: 250px; /* Dá uma altura fixa para a imagem do axolote no celular */
   }
+
+  
+}
+
+/* BADGE DA CARTEIRA CONECTADA */
+.connected-wallet-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(50, 159, 154, 0.15); /* Fundo verde-água bem clarinho */
+  border: 1px solid rgba(50, 159, 154, 0.4);
+  padding: 0.6rem 1rem;
+  border-radius: 20px;
+  margin-bottom: 0.5rem;
+}
+
+.wallet-icon {
+  font-size: 1.2rem;
+}
+
+.wallet-address {
+  color: white;
+  font-family: 'JetBrains Mono', monospace; /* Fonte monoespaçada para código */
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.wallet-form-container{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.login-sub-title {
+  color: #d1ede9;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-top: -1rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+select.wallet-input option {
+  color: #1a1714; /* Cor preta/grafite escuro para o texto */
+  background-color: #ffffff; /* Fundo branco para garantir a leitura */
+  font-weight: 500;
 }

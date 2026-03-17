@@ -9,24 +9,30 @@
         <span class="icon">📄</span> Tanques
       </a>
       <a href="#" class="nav-item" [class.active]="menuAtivoLateral === 'axolotes'" (click)="navegarMenuLateral('axolotes', $event)">
-        <span class="icon">🗺️</span> Axolotes
+        <span class="icon">🦎</span> Axolotes
       </a>
-      <a href="#" class="nav-item">
-        <span class="icon">👥</span> Registros
+      <a href="#" class="nav-item" *ngIf="cargoUsuario === 'operador'" [class.active]="menuAtivoLateral === 'cadastro-axolote'" (click)="navegarMenuLateral('cadastro-axolote', $event)">
+        <span class="icon">🦎</span> Cadastro Axolote
+      </a>
+
+      <a href="#" class="nav-item" *ngIf="cargoUsuario === 'operador'" [class.active]="menuAtivoLateral === 'cadastro-tanque'" (click)="navegarMenuLateral('cadastro-tanque', $event)">
+        <span class="icon">〰️</span> Cadastro Tanque
+      </a>
+      <a href="#" class="nav-item" [class.active]="menuAtivoLateral === 'monitoramento'" (click)="navegarMenuLateral('monitoramento', $event)">
+        <span class="icon">👥</span> Monitoramento
       </a>
     </nav>
   </aside>
 
   <main class="main-area">
-    
     <header class="top-header">
       <div class="search-wrapper">
         <span class="search-icon">🔍</span>
         <input type="text" placeholder="Pesquisar..." class="search-input">
       </div>
       <div class="header-icons">
-        <button class="icon-btn">🔔</button>
-        <button class="icon-btn">⚙️</button>
+        <button class="icon-btn-notification"><img src="assets/notification-icon.png" alt="Notificações"> </button>
+        <button class="icon-btn-config"><img src="assets/config-icon.png"></button>
       </div>
     </header>
 
@@ -35,55 +41,88 @@
       <div *ngIf="menuAtivoLateral === 'home'">
         
         <div class="filter-tabs">
-          <button class="tab-btn" [class.active]="abaAtiva === 'ultimo_acesso'" (click)="selecionarAba('ultimo_acesso')">⏱️ Último acesso</button>
-          <button class="tab-btn" [class.active]="abaAtiva === 'axolote'" (click)="selecionarAba('axolote')">👤 Axolote</button>
-          <button class="tab-btn" [class.active]="abaAtiva === 'aquarios'" (click)="selecionarAba('aquarios')">〰️ Aquários</button>
+          <button class="tab-btn" [class.active]="abaAtiva === 'ultimo_acesso'" (click)="selecionarAba('ultimo_acesso')">Visto por último</button>
+          <button class="tab-btn" [class.active]="abaAtiva === 'axolote'" (click)="selecionarAba('axolote')">Axolote</button>
+          <button class="tab-btn" [class.active]="abaAtiva === 'aquarios'" (click)="selecionarAba('tanques')">Tanques</button>
         </div>
 
         <section class="disney-carousel" (mouseenter)="pararCarrossel()" (mouseleave)="iniciarCarrossel()">
-          
           <button class="carousel-arrow left-arrow" (click)="slideAnterior()">&#10094;</button>
           <button class="carousel-arrow right-arrow" (click)="proximoSlide()">&#10095;</button>
-
           <div class="carousel-track" [style.transform]="'translateX(-' + (slideAtual * 100) + '%)'">
             <div class="carousel-slide" *ngFor="let item of itensCarrossel">
-              <img [src]="item.imagem" [alt]="item.titulo" class="slide-image">
+              <img src="assets/placeholder.png" [alt]="item.titulo" class="slide-image">
               <div class="slide-overlay">
                 <h2>{{ item.titulo }}</h2>
                 <p>{{ item.desc }}</p>
               </div>
             </div>
           </div>
-
           <div class="carousel-dots">
             <div class="dot" *ngFor="let item of itensCarrossel; let i = index" [class.active]="slideAtual === i" (click)="irParaSlide(i)"></div>
           </div>
         </section>
 
         <section class="bottom-grid">
-          <div class="timeline-panel">
-            <div class="timeline-item">
-              <div class="timeline-content">
-                <h4>Mobile app</h4>
-                <div class="status-box status-accepted">Aceito</div>
+          
+          <div class="timeline-panel panel-white">
+            <h3 class="panel-title">Últimas Medições</h3>
+            
+            <p *ngIf="carregandoMedicoes" class="info-text">Buscando na rede Sepolia...</p>
+            <p *ngIf="!carregandoMedicoes && medicoesRecentes.length === 0" class="info-text">Nenhuma medição registrada.</p>
+            
+            <div class="timeline-item-container" *ngFor="let med of medicoesRecentes">
+              <div class="timeline-content border-default">
+                <h4 class="item-title">Tanque #{{ med.tankId }}</h4>
+                <p class="item-subtitle">Temp: {{ med.temperatura }}°C | pH: {{ med.ph }}</p>
+                <div class="badge-status" [ngClass]="med.statusClasse">{{ med.statusTexto }}</div>
               </div>
             </div>
           </div>
 
-          <div class="alerts-panel">
-            <div class="alert-card alert-warning">
-              <div class="alert-icon">⚠️</div>
-              <div class="alert-text">
-                <h4>Attention needed</h4>
-                <p>Lorem Ipsum is simply dummy text...</p>
+          <div class="timeline-panel panel-white">
+            <h3 class="panel-title">Pendentes de Audição</h3>
+            
+            <div class="empty-state-mini" *ngIf="medicoesPendentes.length === 0">
+              <p>🎉 Nenhuma medição pendente no momento.</p>
+            </div>
+
+            <div class="timeline-item-container" *ngFor="let med of medicoesPendentes" 
+                 [ngClass]="{'clickable-item': cargoUsuario === 'auditor'}" 
+                 (click)="cargoUsuario === 'auditor' ? abrirAuditoria(med) : null">
+              
+              <div class="timeline-content border-pending">
+                <h4 class="item-title">{{ med.nomeTanque }}</h4>
+                <p class="item-subtitle">Temp: {{ med.temperatura }}°C | pH: {{ med.ph }}</p>
+                
+                <div class="badge-status status-pending">
+                  Aguardando Avaliação
+                </div>
+                
+                <div *ngIf="cargoUsuario === 'auditor'" class="action-hint">
+                  Avaliar Medição →
+                </div>
               </div>
+
             </div>
           </div>
+
         </section>
-      </div>
+      </div> 
+
       <app-tanques *ngIf="menuAtivoLateral === 'tanques'"></app-tanques>
-
       <app-axolotes *ngIf="menuAtivoLateral === 'axolotes'"></app-axolotes>
+      
+      <app-monitoramento 
+        *ngIf="menuAtivoLateral === 'monitoramento'"
+        [medicaoParaAvaliar]="medicaoSelecionada"
+        (fecharAuditoria)="voltarDaAuditoria()">
+      </app-monitoramento>
+      
+      <app-cadastro-axolote *ngIf="menuAtivoLateral === 'cadastro-axolote'"></app-cadastro-axolote>
 
-    </div> </main> </div> ```
+      <app-cadastro-tanque *ngIf="menuAtivoLateral === 'cadastro-tanque'"></app-cadastro-tanque>
 
+    </div> 
+  </main> 
+</div>

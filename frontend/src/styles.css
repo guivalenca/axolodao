@@ -6,4 +6,107 @@ html, body {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* =======================================================
+   ESTILOS GERAIS (Aplicados em TODAS as telas, PC, Tablet, Celular)
+   ======================================================= */
+
+/* PADRONIZAÇÃO DE TODOS OS CABEÇALHOS DE CARDS */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  min-height: 90px; 
+  padding: 0 0 1rem 0; 
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #EAECEE;
+  box-sizing: border-box; 
+}
+
+/* Garante que os títulos dentro do cabeçalho não quebrem o layout */
+.card-header h2 {
+  margin: 0;
+  line-height: 1.2;
+  font-size: 1.6rem !important; /* Força o mesmo tamanho em todas as abas */
+  font-weight: 700 !important;
+  color: #2C3E50;
+}
+
+.card-header p {
+  margin: 0.3rem 0 0 0;
+  font-size: 0.85rem !important;
+  color: #7F8C8D;
+}
+
+/* PADRONIZAÇÃO DA BARRA SUPERIOR DA TELA */
+.topbar {
+  background: var(--surface, #fff);
+  border-bottom: 1px solid var(--border, #e2ddd6);
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  min-height: 80px; 
+  box-sizing: border-box; 
+}
+
+
+/* =======================================================
+   RESPONSIVIDADE - TABLETS E TELAS MENORES (Até 992px)
+   ======================================================= */
+@media (max-width: 992px) {
+  /* O grid de 4 colunas da água passa a ter apenas 2 colunas */
+  .grid-4-cols {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* O card principal fica um pouco mais apertado para caber */
+  .main-card {
+    padding: 1.5rem;
+  }
+
+  .bottom-grid {
+    grid-template-columns: 1fr; /* Muda para 1 coluna só */
+  }
+}
+
+/* =======================================================
+   RESPONSIVIDADE - CELULARES (Até 768px)
+   ======================================================= */
+@media (max-width: 768px) {
+  
+  /* O grid que era de 2 colunas no tablet, agora vira 1 coluna só */
+  .grid-4-cols {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Os botões de abas (Tanques / Axolotes) ficam empilhados */
+  .filter-tabs {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .tab-btn {
+    width: 100%; 
+    justify-content: center; 
+  }
+
+  /* Reduz o respiro (padding) da box principal */
+  .card-body {
+    padding: 1rem !important;
+  }
+  
+  /* Reduz um pouquinho o título só no celular para não quebrar linha feio */
+  .card-header h2 {
+    font-size: 1.3rem !important;
+  }
+
+  .bottom-grid {
+    grid-template-columns: 1fr; /* Muda para 1 coluna só */
+  }
 }

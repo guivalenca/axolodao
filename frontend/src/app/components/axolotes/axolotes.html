@@ -1,50 +1,114 @@
 <div class="axolotes-layout">
-  
   <div class="main-column">
-    <div class="filter-top">
-      <button class="tab-btn active">〰️ Axolote</button>
+    <div class="main-header">
+      <div class="filter-tabs">
+        <p *ngIf="carregando" class="loading-text">Buscando genéticas...</p>
+
+        <button
+          *ngFor="let axolote of axolotesRegistrados"
+          class="tab-btn"
+          [class.active]="axoloteSelecionadoId === axolote.id"
+          (click)="selecionarAxolote(axolote.id)"
+        >
+          〰️ {{ axolote.name }}
+        </button>
+      </div>
+
+      <button class="btn-exportar">📥</button>
     </div>
 
-    <div class="profile-card">
-      <div class="profile-img-container">
-        <img src="/assets/axolotes-loginPage.png" alt="Axolote Branco" class="profile-img">
+    <div class="empty-state" *ngIf="!carregando && axolotesRegistrados.length === 0">
+      <p>Nenhum axolote registrado. Vá em "Cadastro" para adicionar o primeiro!</p>
+    </div>
+
+    <div class="profile-card" *ngIf="axoloteAtual">
+      <div class="profile-image-col">
+        <img src="assets/placeholder.png" alt="Foto do Axolote" class="axolote-photo" />
+        <span class="id-tag">ID: AXO {{ axoloteAtual.id }}</span>
       </div>
-      
-      <div class="profile-info">
-        <div class="info-block">
-          <h3>About Me</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque posuere fermentum urna, eu condimentum mauris.</p>
+
+      <div class="profile-info-col">
+        <div class="info-header">
+          <h2 class="axolote-name">{{ axoloteAtual.name }}</h2>
+          <p class="axolote-species">{{ axoloteAtual.species }}</p>
         </div>
-        <div class="info-block">
-          <h3>About Me</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque posuere fermentum urna, eu condimentum mauris.</p>
+
+        <p class="axolote-birth">
+          <strong>Data de nascimento:</strong> {{ axoloteAtual.birthDate }}
+        </p>
+
+        <div class="metrics-list">
+          <div class="metric-item">
+            <span class="metric-icon">📏</span>
+            <strong>Morfologia:</strong>
+            <span class="metric-value">{{ axoloteAtual.morphData }}</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-icon">〰️</span>
+            <strong>Tanque:</strong>
+            <span class="metric-value">Tanque #{{ axoloteAtual.tankId }}</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="chart-card">
+    <div class="chart-card" *ngIf="axoloteAtual">
       <div class="chart-header">
-        <div>
-          <h2>$35,8K</h2>
-          <p>Overall Revenue</p>
+        <h3>Temperatura x Ph</h3>
+        <button class="dropdown-btn">Mensal ⌄</button>
+      </div>
+      <div class="chart-image-placeholder">
+        <p style="color: #95a5a6; padding: 4rem 0">(Gráfico de Linha Aqui)</p>
+      </div>
+    </div>
+  </div>
+
+  <aside class="sidebar-column">
+    <div class="sidebar-block">
+      <h3 class="sidebar-title">Histórico de Monitoramento</h3>
+
+      <p *ngIf="carregandoHistorico" style="color: #95a5a6; font-size: 0.85rem">
+        Sincronizando sensores...
+      </p>
+
+      <p
+        *ngIf="!carregandoHistorico && historicoTanque.length === 0"
+        style="color: #95a5a6; font-size: 0.85rem; font-style: italic"
+      >
+        Nenhum dado registrado para o tanque deste axolote.
+      </p>
+
+      <div class="timeline" *ngIf="!carregandoHistorico && historicoTanque.length > 0">
+        <div class="timeline-item" *ngFor="let item of historicoTanque">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <h4>{{ item.tipo }}</h4>
+              <span class="badge" [ngClass]="item.statusClasse">{{ item.statusTexto }}</span>
+            </div>
+
+            <p>Temperatura {{ item.temperatura }}°C | pH {{ item.ph }}</p>
+          </div>
         </div>
-        <button class="dropdown-btn">Monthly ⌄</button>
-      </div>
-      <div class="chart-placeholder">
-        <p style="color: #95A5A6; text-align: center; padding: 4rem 0;">(Gráfico de Linha Aqui)</p>
       </div>
     </div>
-  </div>
 
-  <div class="side-column">
-    <div class="comments-list">
-      <div class="comment-card" *ngFor="let comment of comentarios">
-        <h4>{{ comment.titulo }}</h4>
-        <p>{{ comment.texto }}</p>
+    <div class="sidebar-block comments-block">
+      <div class="comment-card">
+        <h4>Comentário</h4>
+        <p>"Ele ficou muito ativo depois da alimentação. As brânquias estavam bem abertas."</p>
+      </div>
+
+      <div class="comment-card">
+        <h4>Comentário</h4>
+        <p>"Ficou escondido atrás da planta durante boa parte da observação."</p>
+      </div>
+
+      <div class="comment-card">
+        <h4>Comentário</h4>
+        <p>"Reagiu rápido quando me aproximei do vidro hoje."</p>
       </div>
     </div>
-    
-    <button class="fab-btn">+</button>
-  </div>
 
+  </aside>
 </div>

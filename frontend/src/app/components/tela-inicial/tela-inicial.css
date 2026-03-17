@@ -67,6 +67,8 @@
   align-items: center;
   padding: 0 2rem;
   border-bottom: 1px solid #EAECEE;
+  flex-shrink: 0; /* Proíbe o header de ser esmagado pelo conteúdo debaixo */
+  min-height: 80px;
 }
 
 .search-wrapper {
@@ -89,10 +91,22 @@
 .header-icons .icon-btn {
   background: none;
   border: none;
-  font-size: 1.2rem;
+  font-size: 0.5rem;
   margin-left: 1rem;
   cursor: pointer;
 }
+
+.icon-btn-notification img, .icon-btn-config img {
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+}
+
+.button:focus {
+  outline: none;
+
+}
+
 
 /* CONTEÚDO */
 .dashboard-content {
@@ -232,50 +246,104 @@
 }
 
 /* GRID INFERIOR (TIMELINE E ALERTAS) */
+/* ==========================================
+   ESTILOS DOS QUADROS DE MEDIÇÕES (BOTTOM GRID)
+   ========================================== */
+
 .bottom-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  grid-template-columns: 1fr 1fr; /* Cria duas colunas do mesmo tamanho */
+  gap: 25px; /* Espaço entre os dois quadros */
+  align-items: start; /* Impede que um quadro estique se o outro for maior */
+  margin-top: 30px; /* Dá um respiro entre o carrossel e os quadros */
 }
 
-.timeline-panel, .alerts-panel {
+.panel-white {
   background: white;
-  border-radius: 15px;
-  padding: 2rem;
-  border: 1px solid #EAECEE;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
 }
 
-/* ALERTAS DIREITOS */
-.alert-card {
-  display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  border-radius: 8px;
+.panel-title {
   margin-bottom: 1rem;
-  border-left: 6px solid;
+  color: #2C3E50;
+  font-size: 1.1rem;
 }
 
-.alert-warning {
-  background-color: #FFF9E6;
-  border-left-color: #F5B041;
-  color: #D68910;
+.info-text {
+  font-size: 0.85rem;
+  color: #7F8C8D;
 }
 
-.alert-success {
-  background-color: #E8F8F5;
-  border-left-color: #2ECC71;
-  color: #1D8348;
+.timeline-item-container {
+  margin-bottom: 15px;
 }
 
-.alert-danger {
-  background-color: #FDEDEC;
-  border-left-color: #E74C3C;
-  color: #B03A2E;
+.timeline-content {
+  padding-left: 15px;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
 }
 
-.alert-text h4 { margin: 0 0 0.2rem 0; font-size: 0.95rem; }
-.alert-text p { margin: 0; font-size: 0.8rem; opacity: 0.8; }
+/* Bordas laterais dinâmicas */
+.border-default { border-left: 2px solid #329F9A; }
+.border-pending { border-left: 3px solid #F39C12; }
 
+/* Textos internos da lista */
+.item-title {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #14404D;
+}
+
+.item-subtitle {
+  margin: 0.2rem 0;
+  font-size: 0.8rem;
+  color: #7F8C8D;
+}
+
+/* Pílulas de Status */
+.badge-status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+.status-pending {
+  background-color: #FEF9E7;
+  color: #F39C12;
+}
+
+/* Estado vazio (Nenhuma pendência) */
+.empty-state-mini {
+  padding: 20px;
+  text-align: center;
+  color: #95a5a6;
+  background-color: #F8F9FA;
+  border-radius: 8px;
+}
+
+/* Interação do Auditor (Hover e Clique) */
+.clickable-item {
+  cursor: pointer;
+}
+
+.clickable-item:hover .timeline-content {
+  background-color: #F8F9FA;
+  border-radius: 0 8px 8px 0;
+}
+
+.action-hint {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: #329F9A;
+  font-weight: bold;
+}
 
 /* SETAS DO CARROSSEL */
 .carousel-arrow {
@@ -314,4 +382,32 @@
 
 .right-arrow {
   right: 0;
+}
+
+/* ESTILOS DOS STATUS DA TIMELINE */
+.status-box {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-top: 0.3rem;
+}
+
+/* Verde para Validado */
+.status-accepted {
+  background-color: #E0F2F0;
+  color: #00756A;
+}
+
+/* Amarelo para Pendente */
+.status-pending {
+  background-color: #FFF3DC;
+  color: #C97B00;
+}
+
+/* Vermelho para Contestado */
+.status-contested {
+  background-color: #FDECEA;
+  color: #C0392B;
 }
